@@ -1,23 +1,26 @@
 import pygame
 
 from config import Config
-
-# Init pygame
 from window_manager import WindowManager
 
+# Init pygame
 pygame.init()
 
+# Get window size
+display_info = pygame.display.Info()
+window_size = int(0.7 * display_info.current_w), int(0.7 * display_info.current_h)
+
 # Set up the drawing window
-screen = pygame.display.set_mode(Config.WINDOW_SIZE, Config.WINDOW_TYPE)
+screen = pygame.display.set_mode(window_size, Config.WINDOW_TYPE)
 
 # Set the window title
 pygame.display.set_caption(Config.CAPTION)
 
-# set clock FPS
-clock = pygame.time.Clock()
+# Set clock FPS
+fps_clock = pygame.time.Clock()
 
-# get window manager
-window_manager = WindowManager()
+# Get window manager
+window_manager = WindowManager(window_size)
 
 # Run until the user asks to quit
 running = True
@@ -28,16 +31,13 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-            done = True
+            running = False
 
     # Draw the image
     window_manager.draw(screen)
 
-    # Flip the display
-    pygame.display.flip()
-
-    # set FPS
-    clock.tick(Config.FPS)
+    # Set FPS
+    fps_clock.tick(Config.FPS)
 
 # Done! Time to quit.
 pygame.quit()
