@@ -8,7 +8,7 @@ pygame.init()
 
 # Get window size
 display_info = pygame.display.Info()
-window_size = int(0.7 * display_info.current_w), int(0.7 * display_info.current_h)
+window_size = int(Config.SCALE_OF_MAX * display_info.current_w), int(Config.SCALE_OF_MAX * display_info.current_h)
 
 # Set up the drawing window
 screen = pygame.display.set_mode(window_size, Config.WINDOW_TYPE)
@@ -20,7 +20,7 @@ pygame.display.set_caption(Config.CAPTION)
 fps_clock = pygame.time.Clock()
 
 # Get window manager
-window_manager = WindowManager(window_size)
+window_manager = WindowManager(window_size, screen)
 
 # Run until the user asks to quit
 running = True
@@ -34,7 +34,7 @@ while running:
             running = False
 
     # Draw the image
-    window_manager.draw(screen)
+    window_manager.draw()
 
     # Set FPS
     fps_clock.tick(Config.FPS)
